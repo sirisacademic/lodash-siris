@@ -1,0 +1,21 @@
+{
+  "name": "lodash-siris",
+  "homepage": "https://github.com/sirisacademic/lodash-siris",
+  "authors": [
+    "Xavi Gimenez <xavi.gimenez@sirisacademic.com>"
+  ],
+  "description": "Extending functionality of lodash",
+  "main": "lodash-siris.js",
+  "keywords": [
+    "lodash"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
