@@ -2,11 +2,13 @@
 Extending functionality of lodash
 
 
-### join
+### _.join
 Given two collections, performs a join based on the specified key.
 
-### filterInPlace
+
+### _.filterInPlace
 In-place alternative to Array.prototype.filter().
 
-### trimToTimeFrame
+
+### _.trimToTimeFrame
 Given two collections with yearly data, filter them by the common time span between them.
