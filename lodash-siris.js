@@ -76,10 +76,6 @@
 		filterInPlace(dataset2, function(value) {
 			return _.inRange(value[key2], firstCommonYear, lastCommonYear);
 		});
-
-		// sort them by the key
-		_.sortBy(dataset1, key1);
-		_.sortBy(dataset2, key2);
 	}
 
 
