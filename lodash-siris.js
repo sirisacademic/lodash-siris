@@ -45,14 +45,14 @@
 	// given two datasets that contain yearly data, filter them by the 
 	// yearly time frame common in both datasets
 	function trimToTimeFrame(dataset1, dataset2, key1, key2) {
-		var firstCommonYear = _.max(
+		var firstCommonYear = _.max([
 				_.min(_.map(dataset1, key1), key1),
 				_.min(_.map(dataset2, key2), key2)
-			),
-			lastCommonYear = _.min(
+			]),
+			lastCommonYear = _.min([
 				_.max(_.map(dataset1, key1), key1),
 				_.max(_.map(dataset2, key2), key2)
-			);
+			]);
 
 		dataset1 = _.filter(dataset1, function(row) {
 			return _.inRange(row[key1], firstCommonYear, lastCommonYear)
