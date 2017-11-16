@@ -30,7 +30,11 @@
 	    for (var j = 0; j < m; j++) { // loop through m items
 	        var y = mainTable[j];
 	        var x = lookupIndex[y[mainKey]]; // get corresponding row from lookupTable
-	        output.push(select(y, x)); // select only the columns you need
+
+	        // get sure both object have the same key, otherwise
+	        // do not try to merge and do not add to the output
+	        if(x)
+	        	output.push(select(y, x)); // select only the columns you need
 	    }
 	    return output;
 	};
