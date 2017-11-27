@@ -81,9 +81,17 @@
 
 
 
-
-	// takes two columns (key & value) and spreads in to multiple columns, 
-	// it makes “long” data wider
+	/**
+	 * Same functionality as tydir:spread function of the R language
+	 * arguments:
+	        data:           data frame
+	        key:            column values to convert to multiple columns
+	        value:          single column values to convert to multiple columns' values 
+	        fill:           If there isn't a value for every combination of the other variables and the key 
+	                        column, this value will be substituted
+	        convert:        if TRUE will automatically convert values to logical, integer, numeric, complex or 
+	                        factor as appropriate
+	 */
 	function spread(data, key, value, fill) {
 		// the new collection
 		var output = [],
