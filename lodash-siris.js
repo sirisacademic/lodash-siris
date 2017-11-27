@@ -81,9 +81,59 @@
 
 
 
+
+	// takes two columns (key & value) and spreads in to multiple columns, 
+	// it makes “long” data wider
+	function spread(data, key, value, fill) {
+		// the new collection
+		var output = [],
+		  column_values = _.uniq(_.map(data, key));
+
+		// all those columns apart from key and vaule are the columns
+		// we want to group by, and convert each group from a long format
+		// to a wide format. So group for a composed key made up from
+		// all these column names
+		var column_keys = _.difference(
+			_.keys(_.first(data)),
+			[key, value]
+		);
+
+		var groups = _.groupBy(data, function(row) {
+			return _.values(_.pick(row, column_keys)).join('###');
+		});
+
+		_.values(groups).forEach(function(group) {
+			var obj = {};
+			
+			column_keys.forEach(function(column_key) {
+			  obj[column_key] = _.first(group)[column_key];
+			});
+
+			column_values.forEach(function(column_value) {
+				// in order to be tidy data, each group of rows should contain
+				// the same set of unique values present in the key column, otherwise
+				// the tidy structure will creates combinations of variables that do
+				// not exist in the original data set. In that case the combination is
+				// filled with the value specified in the FILL parameter function or 
+				// in the last case, by an undefined value
+				if(objWithValueOfKeyColumn = _.find(group, [key, column_value]))
+					obj[column_value] = objWithValueOfKeyColumn[value];
+				else
+					obj[column_value] = fill || undefined;
+			})
+
+	    	output.push(obj);
+  		});
+
+	  return output;
+	}
+
+
+
 	// add mixins here
 	_.mixin( { 'join' : join });
 	_.mixin( { 'filterInPlace' : filterInPlace});
 	_.mixin( { 'trimToTimeFrame' : trimToTimeFrame });
+	_.mixin( { 'spread' : spread });
 
 })(_);
