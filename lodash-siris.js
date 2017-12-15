@@ -71,10 +71,10 @@
             ]);
  
         filterInPlace(dataset1, function(value) {
-            return _.inRange(value[key1], firstCommonYear, lastCommonYear);
+            return _.inRange(value[key1], firstCommonYear, lastCommonYear + 1);
         });
         filterInPlace(dataset2, function(value) {
-            return _.inRange(value[key2], firstCommonYear, lastCommonYear);
+            return _.inRange(value[key2], firstCommonYear, lastCommonYear + 1);
         });
     }
 
