@@ -136,10 +136,72 @@
     }
 
 
+    /**
+    * Title Caps
+    * 
+    * Ported to JavaScript By John Resig - http://ejohn.org/ - 21 May 2008
+    * Original by John Gruber - http://daringfireball.net/ - 10 May 2008
+    * License: http://www.opensource.org/licenses/mit-license.php
+    *   The code handles a number of edge cases:
+        -   It knows about small words that should not be capitalized. Not all style guides use the same list of words — for example, many      lowercase with, but I do not. The list of words is easily modified to suit your own taste/rules: “a an and as at but by en          for if in of on or the to v[.]? via vs[.]?” (The only trickery here is that “v” and “vs” include optional dots, expressed in        regex syntax.)
+        -   The script assumes that words with capitalized letters other than the first character are already correctly capitalized. This      means it will leave a word like “iTunes” alone, rather than mangling it into “ITunes” or, worse, “Itunes”.
+        -   It also skips over any words with line dots; “example.com” and “del.icio.us” will remain lowercase.
+        -   It has hard-coded hacks specifically to deal with odd cases I’ve run into, like “AT&T” and “Q&A”, both of which contain small       words (at and a) which normally should be lowercase.
+        -   The first and last word of the title are always capitalized, so input such as “Nothing to be afraid of” will be turned into        “Nothing to Be Afraid Of”.
+        -   A small word after a colon will be capitalized.
+    * arguments:
+            title   The string to be capitalized
+    */
+    function titleCaps(title) {
+        var small = "(a|an|and|as|at|but|by|en|for|if|in|of|on|or|the|to|v[.]?|via|vs[.]?)";
+        var punct = "([!\"#$%&'()*+,./:;<=>?@[\\\\\\]^_`{|}~-]*)";
+        
+        var parts = [], 
+            split = /[:.;?!] |(?: |^)["Ò]/g, 
+            index = 0;
+        
+        function lower(word)    {
+            return word.toLowerCase();
+        }
+        
+        function upper(word){
+            return word.substr(0,1).toUpperCase() + word.substr(1);
+        }
+
+		while (true) {
+			var m = split.exec(title);
+
+			parts.push( title.substring(index, m ? m.index : title.length)
+				.replace(/\b([A-Za-z][a-z.'Õ]*)\b/g, function(all){
+					return /[A-Za-z]\.[A-Za-z]/.test(all) ? all : upper(all);
+				})
+				.replace(RegExp("\\b" + small + "\\b", "ig"), lower)
+				.replace(RegExp("^" + punct + small + "\\b", "ig"), function(all, punct, word){
+					return punct + upper(word);
+				})
+				.replace(RegExp("\\b" + small + punct + "$", "ig"), upper));
+			
+			index = split.lastIndex;
+			
+			if ( m ) parts.push( m[0] );
+			else break;
+		}
+		
+		return parts.join("").replace(/ V(s?)\. /ig, " v$1. ")
+			.replace(/(['Õ])S\b/ig, "$1s")
+			.replace(/\b(AT&T|Q&A)\b/ig, function(all){
+				return all.toUpperCase();
+			});
+    }
+
+
+
+
     // add mixins here
     _.mixin( { 'join' : join });
     _.mixin( { 'filterInPlace' : filterInPlace});
     _.mixin( { 'trimToTimeFrame' : trimToTimeFrame });
     _.mixin( { 'spread' : spread });
+    _.mixin( { 'titleCaps' : titleCaps });
  
 })(_);
