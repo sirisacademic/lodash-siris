@@ -151,9 +151,22 @@
         -   A small word after a colon will be capitalized.
     * arguments:
             title   The string to be capitalized
+            langs   array of two-letter codes of languages to be applied for the small words, if undefined all the supported languages are applied
     */
-    function titleCaps(title) {
-        var small = "(a|an|and|as|at|but|by|en|for|if|in|of|on|or|the|to|v[.]?|via|vs[.]?)";
+    function titleCaps(title, langs) {
+        var smallByLang = {
+            'en' : "a|an|and|as|at|but|by|en|for|if|in|of|on|or|the|to|",
+            'fr' : "un|et|comme|à|mais|par|in|pour|si|dans|de|sur|ou|la|",
+            'de' : "ein|und|wie|beim|aber|durch|zum|fuer|ob|im|von|auf|oder|das|zu|zur|der|",
+            'it' : "un|e|come|a|ma|per|se|in|di|da|delle|della|su|o|il|le|i|la|gli|lo|"
+        };
+        // filter by language if they are specified
+        if(langs && langs.length > 0)
+            smallByLang = _.pickBy(smallByLang, function(value, key) { 
+                return langs.indexOf(key) != -1;
+            });
+
+        var small = "(" + _.values(smallByLang).join('') + "v[.]?|via|vs[.]?)";
         var punct = "([!\"#$%&'()*+,./:;<=>?@[\\\\\\]^_`{|}~-]*)";
         
         var parts = [], 
