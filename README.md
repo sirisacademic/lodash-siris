@@ -29,4 +29,4 @@ Takes two columns (key & value) and spreads in to multiple columns, it makes “
 ## String
 
 #### _.titleCaps
-Pretty capitalization of strings, covering a good amount of edge cases (small words, etc) 
+Pretty capitalization of strings, covering a good amount of edge cases (small words, etc). Supports cases per languages
