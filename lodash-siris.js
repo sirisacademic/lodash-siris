@@ -158,7 +158,8 @@
             'en' : "a|an|and|as|at|but|by|en|for|if|in|of|on|or|the|to|",
             'fr' : "un|et|comme|à|mais|par|in|pour|si|dans|de|sur|ou|la|",
             'de' : "ein|und|wie|beim|aber|durch|zum|fuer|ob|im|von|auf|oder|das|zu|zur|der|",
-            'it' : "un|e|come|a|ma|per|se|in|di|da|delle|della|su|o|il|le|i|la|gli|lo|"
+            'it' : "un|e|come|a|ma|per|se|in|di|da|delle|della|su|o|il|le|i|la|gli|lo|",
+            'es' : "un|y|e|como|a|pero|si|en|de|para|o|el|la|los|las|"
         };
         // filter by language if they are specified
         if(langs && langs.length > 0)
