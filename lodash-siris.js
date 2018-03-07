@@ -21,7 +21,7 @@
         // to pass the 'select' paramter and add the logic here
         if(select == undefined) {
             select = function(x,y) {
-                return _.assign({}, [x, y])
+                return _.assign({}, x, y)
             };
         }           
  
